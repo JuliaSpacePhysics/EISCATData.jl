@@ -4,10 +4,14 @@ using HDF5: h5open
 using FieldViews: FieldViewable
 using Dates: unix2datetime
 using Match: @match
+import Madrigal: get_experiments, kinst
+
+include("sites.jl")
 
 const EISCAT_SERVER = "http://madrigal.eiscat.se"
 
-export get_data
+export get_data, get_experiments
+export TRO, LYR
 
 default_vars() = (:gdalt, :ne, :ti, :tr)
 
@@ -26,9 +30,8 @@ Set `clip = true` to clip data to the exact time range. Set `verbose = true` to 
 """
 function get_data(tstart, tend, kinst, kindat, mod, vars = nothing; tvars = (:ut1_unix, :ut2_unix), clip = false, verbose = false, server = EISCAT_SERVER, kw...)
     vars = @something vars default_vars()
-    exp_files = filter!(get_instrument_files(kinst, _kindat(kindat), tstart, tend; server)) do file
-        contains(file.name, mod)
-    end
+    exp_files = get_instrument_files(kinst, _kindat(kindat), tstart, tend; server)
+    filter!(file -> contains(file.name, mod), exp_files)
     paths = map(exp_files) do file
         path = download_file(file; server, kw...)
         verbose && @info("Downloaded: ", path)
@@ -81,5 +84,6 @@ function read_table_columns(dfvs, columns)
     end
     return nt(data)
 end
+
 
 end
