@@ -18,18 +18,22 @@ _kindat(s::Symbol) = @match s begin
 end
 
 """
-    get_data(tstart, tend, kinst, kindat, mod, vars = nothing; tvars = (:ut1_unix, :ut2_unix), clip = false, kw...)
+    get_data(tstart, tend, kinst, kindat, mod, vars = nothing; tvars = (:ut1_unix, :ut2_unix), clip = false, verbose = false, kw...)
 
 Download and process EISCAT data from the Madrigal database, given the time range, instrument code `kinst`, kind of data file code `kindat`, and modulation `mod`.
 
-Set `clip = true` to clip data to the exact time range. Additional keyword arguments are passed to `download_file`.
+Set `clip = true` to clip data to the exact time range. Set `verbose = true` to show download progress. Additional keyword arguments are passed to `download_file`.
 """
-function get_data(tstart, tend, kinst, kindat, mod, vars = nothing; tvars = (:ut1_unix, :ut2_unix), clip = false, server = EISCAT_SERVER, kw...)
+function get_data(tstart, tend, kinst, kindat, mod, vars = nothing; tvars = (:ut1_unix, :ut2_unix), clip = false, verbose = false, server = EISCAT_SERVER, kw...)
     vars = @something vars default_vars()
     exp_files = filter!(get_instrument_files(kinst, _kindat(kindat), tstart, tend; server)) do file
         contains(file.name, mod)
     end
-    paths = download_file.(exp_files; server, kw...)
+    paths = map(exp_files) do file
+        path = download_file(file; server, kw...)
+        verbose && @info("Downloaded: ", path)
+        path
+    end
     out = load(sort!(paths), (vars..., tvars...))
     return process_data(out, times(out, tvars), tstart, tend; clip)
 end
