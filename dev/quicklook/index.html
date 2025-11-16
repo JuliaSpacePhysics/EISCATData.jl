@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Quicklook Example · EISCATData.jl</title><meta name="title" content="Quicklook Example · EISCATData.jl"/><meta property="og:title" content="Quicklook Example · EISCATData.jl"/><meta property="twitter:title" content="Quicklook Example · EISCATData.jl"/><meta name="description" content="Documentation for EISCATData.jl."/><meta property="og:description" content="Documentation for EISCATData.jl."/><meta property="twitter:description" content="Documentation for EISCATData.jl."/><meta property="og:url" content="https://JuliaSpacePhysics.github.io/EISCATData.jl/quicklook/"/><meta property="twitter:url" content="https://JuliaSpacePhysics.github.io/EISCATData.jl/quicklook/"/><link rel="canonical" href="https://JuliaSpacePhysics.github.io/EISCATData.jl/quicklook/"/><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../search_index.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../">EISCATData.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Quicklook Example</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Quicklook Example</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/JuliaSpacePhysics/EISCATData.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/JuliaSpacePhysics/EISCATData.jl/blob/main/docs/src/quicklook.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Quicklook-Example"><a class="docs-heading-anchor" href="#Quicklook-Example">Quicklook Example</a><a id="Quicklook-Example-1"></a><a class="docs-heading-anchor-permalink" href="#Quicklook-Example" title="Permalink"></a></h1><p>This example demonstrates downloading and visualizing EISCAT data from the Madrigal database.</p><h2 id="Load-Data"><a class="docs-heading-anchor" href="#Load-Data">Load Data</a><a id="Load-Data-1"></a><a class="docs-heading-anchor-permalink" href="#Load-Data" title="Permalink"></a></h2><p>Download GUISDAP data from Tromsø for December 9-10, 2020:</p><pre><code class="language-julia hljs">using EISCATData
+using Dates
+t0 = DateTime(2020, 12, 9, 18)
+t1 = DateTime(2020, 12, 10, 6)
+kinst = :tro              # Tromsø radar
+kindat = :GUISDAP         # Analysis method
+modulation = &quot;60&quot;         # Pulse code
+vars = (:ne, :ti, :tr, :vo, :gdalt)
+res = get_data(t0, t1, kinst, kindat, modulation, vars; clip = true)
+te = res.ti .* res.tr     # Electron temperature</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">42×717 Matrix{Float64}:
+  219.501     219.493      219.485   …   215.114     215.098      215.08
+  217.666     217.657      217.647       215.028     215.01       214.99
+    1.00006    34.2601    2010.54        117.622      85.2245     172.023
+    1.8642      1.81507   3092.85        137.435       3.08705     17.2767
+  611.379       1.04172     15.5656        7.49291    96.9369       1.65878
+    1.65656   321.503       67.0173  …   509.799     165.074      153.399
+  212.778     488.316     1072.93       1061.88      226.352      422.197
+   84.0081    182.383      182.804       254.475      63.0373     177.77
+  153.203     262.862      157.521      1847.03      241.382      160.97
+  233.799     172.174      207.047       983.267     231.374       81.3736
+    ⋮                                ⋱                 ⋮        
+ 6172.97      351.107     7669.35       4119.72     2889.89      3179.74
+ 3619.3      8095.42     21188.4        2986.19     7194.45      4260.12
+ 7999.42      917.878    13406.0     …  3088.4       358.268     3488.23
+ 2812.34       37.7823    8263.18        979.02     2868.98     12381.3
+ 9754.44      168.561    10263.6         219.326     997.698     2027.36
+ 5741.96     2065.32      7976.98        109.554    3332.31       282.171
+ 6094.44      810.078      132.95         55.9823   6700.46       131.355
+ 2133.44     3631.66      2010.45    …    88.6738   8864.37      6284.74
+    3.04398  2474.17      2363.23         98.8646    188.16      5543.12</code></pre><p>The returned data contains:</p><ul><li><code>res.times</code>: Time axis (UTC)</li><li><code>res.gdalt</code>: Geodetic altitude (height, km)</li><li><code>res.ne</code>: Electron density (cm⁻³)</li><li><code>res.ti</code>: Ion temperature (K)</li><li><code>res.tr</code>: Temperature ratio (Te/Ti)</li><li><code>res.vo</code>: Line of sight ion velocity (pos = away, km/s)</li></ul><h2 id="Visualize-with-Makie"><a class="docs-heading-anchor" href="#Visualize-with-Makie">Visualize with Makie</a><a id="Visualize-with-Makie-1"></a><a class="docs-heading-anchor-permalink" href="#Visualize-with-Makie" title="Permalink"></a></h2><p>Create altitude-time plots for density, temperatures, and velocity:</p><pre><code class="language-julia hljs">using CairoMakie
+
+const x = unix2datetime.(res.ut1_unix)
+const y = res.gdalt
+const colorranges = (
+    (9.0e9, 1.1e12),
+    (0, 3200),
+    (0, 2600),
+    (-420, 420),
+)
+const names = (L&quot;n_e \, (cm^{-3})&quot;, L&quot;T_e \, (K)&quot;, L&quot;T_i \, (K)&quot;, L&quot;v_i \, (m/s)&quot;)
+let vars = (res.ne, te, res.ti, res.vo), colormap = :rainbow_bgyrm_35_85_c69_n256
+    z = zeros(size(x))
+    f = CairoMakie.Figure(; size = (600, 600))
+    shading = NoShading
+    for (i, var) in enumerate(vars)
+        colorrange = colorranges[i]
+        colorscale = colorrange[1] &gt; 0 ? log10 : identity
+        ax = Axis(f[i, 1], ylabel = &quot;Altitude (km)&quot;)
+        plot = Makie.surface!(ax, x, y, z; color = var, colorrange, colorscale, shading, colormap)
+        Makie.Colorbar(f[i, 2], plot; label = names[i])
+        ylims!(70, 500)
+        i != length(vars) &amp;&amp; Makie.hidexdecorations!(ax; grid = false)
+    end
+    rowgap!(f.layout, 8)
+    f
+end</code></pre><img src="a14cb381.png" alt="Example block output"/><h2 id="Alternative:-PythonPlot"><a class="docs-heading-anchor" href="#Alternative:-PythonPlot">Alternative: PythonPlot</a><a id="Alternative:-PythonPlot-1"></a><a class="docs-heading-anchor-permalink" href="#Alternative:-PythonPlot" title="Permalink"></a></h2><p>You can also use <a href="https://github.com/JuliaPy/PythonPlot.jl"><code>PythonPlot</code></a> for visualization:</p><pre><code class="language-julia hljs">using PythonPlot
+using PythonCall
+@py import cmap: Colormap
+
+let vars = (res.ne, te, res.ti, res.vo), colors = PythonPlot.colorsm, cmap = Colormap(&quot;colorcet:CET_R1&quot;).to_mpl()
+    fig, axs = PythonPlot.subplots(length(vars), 1, figsize = (10, 10))
+    # plot the electron density, temperature, and velocity in three subplots
+    norms = (
+        colors.LogNorm(1.0e10, 1.0e12),
+        colors.Normalize(0, 3200),
+        colors.Normalize(0, 2500),
+        colors.Normalize(-400, 400),
+    )
+    for (i, var) in enumerate(vars)
+        ax = axs[i - 1]
+        p = ax.pcolormesh(x, y, var; cmap, norm = norms[i])
+        cbar = fig.colorbar(p, ax = ax)
+        ax.set_ylim(nothing, 500)
+    end
+    gcf()
+end</code></pre><img src="d150a8f9.png" alt="Example block output"/></article><nav class="docs-footer"><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.16.0 on <span class="colophon-date" title="Sunday 16 November 2025 17:51">Sunday 16 November 2025</span>. Using Julia version 1.12.1.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
