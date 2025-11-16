@@ -24,12 +24,12 @@ Download and process EISCAT data from the Madrigal database, given the time rang
 
 Set `clip = true` to clip data to the exact time range. Additional keyword arguments are passed to `download_file`.
 """
-function get_data(tstart, tend, kinst, kindat, mod, vars = nothing; tvars = (:ut1_unix, :ut2_unix), clip = false, kw...)
+function get_data(tstart, tend, kinst, kindat, mod, vars = nothing; tvars = (:ut1_unix, :ut2_unix), clip = false, server = EISCAT_SERVER, kw...)
     vars = @something vars default_vars()
-    exp_files = filter!(get_instrument_files(kinst, _kindat(kindat), tstart, tend)) do file
+    exp_files = filter!(get_instrument_files(kinst, _kindat(kindat), tstart, tend; server)) do file
         contains(file.name, mod)
     end
-    paths = download_file.(exp_files; kw...)
+    paths = download_file.(exp_files; server, kw...)
     out = load(sort!(paths), (vars..., tvars...))
     return process_data(out, times(out, tvars), tstart, tend; clip)
 end
