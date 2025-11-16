@@ -43,8 +43,8 @@ end
 
 function times(out, tvars)
     tstarts = out[tvars[1]] |> unique
-    tendinds = out[tvars[2]] |> unique
-    x = @. tstarts + (tendinds - tstarts) / 2
+    tends = out[tvars[2]] |> unique
+    x = @. tstarts + (tends - tstarts) / 2
     eltype(x) <: AbstractFloat && return unix2datetime.(x)
     return x
 end

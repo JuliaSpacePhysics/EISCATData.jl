@@ -1,6 +1,6 @@
 name = "EISCATData"
 uuid = "41864403-1ac0-48c6-a62c-c20a831807e0"
-version = "1.0.0-DEV"
+version = "0.1.0"
 authors = ["Zijin Zhang <zijin@ucla.edu> and contributors"]
 
 [workspace]

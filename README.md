@@ -8,7 +8,7 @@ Access and process [EISCAT](https://www.wikipedia.org/wiki/EISCAT) incoherent sc
 
 **Installation**: at the Julia REPL, run `using Pkg; Pkg.add("EISCATData")`
 
-**Documentation**: [![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://JuliaSpacePhysics.github.io/EISCATData.jl/dev/)
+**Documentation**: [![Dev](https://img.shields.io/badge/docs-dev-blue.svg?logo=julia)](https://JuliaSpacePhysics.github.io/EISCATData.jl/dev/)
 
 ## Quick Start
 
