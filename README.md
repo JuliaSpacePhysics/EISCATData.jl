@@ -1,11 +1,14 @@
 # EISCATData
 
-[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://JuliaSpacePhysics.github.io/EISCATData.jl/dev/)
 [![Build Status](https://github.com/JuliaSpacePhysics/EISCATData.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/JuliaSpacePhysics/EISCATData.jl/actions/workflows/CI.yml?query=branch%3Amain)
 [![Coverage](https://codecov.io/gh/JuliaSpacePhysics/EISCATData.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/JuliaSpacePhysics/EISCATData.jl)
 [![Aqua](https://raw.githubusercontent.com/JuliaTesting/Aqua.jl/master/badge.svg)](https://github.com/JuliaTesting/Aqua.jl)
 
 Access and process [EISCAT](https://www.wikipedia.org/wiki/EISCAT) incoherent scatter radar data from the [Madrigal database](https://cedar.openmadrigal.org/).
+
+**Installation**: at the Julia REPL, run `using Pkg; Pkg.add("EISCATData")`
+
+**Documentation**: [![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://JuliaSpacePhysics.github.io/EISCATData.jl/dev/)
 
 ## Quick Start
 

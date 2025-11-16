@@ -9,6 +9,15 @@ Documentation for [EISCATData](https://github.com/JuliaSpacePhysics/EISCATData.j
 ```@index
 ```
 
+## Installation
+
+```julia
+using Pkg
+Pkg.add("EISCATData")
+```
+
+## API Reference
+
 ```@autodocs
 Modules = [EISCATData]
 ```

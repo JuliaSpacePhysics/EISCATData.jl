@@ -5,19 +5,18 @@ DocMeta.setdocmeta!(EISCATData, :DocTestSetup, :(using EISCATData); recursive=tr
 
 makedocs(;
     modules=[EISCATData],
-    authors="Beforerr <zzj956959688@gmail.com> and contributors",
+    authors="Zijin Zhang <zijin@ucla.edu> and contributors",
     sitename="EISCATData.jl",
     format=Documenter.HTML(;
         canonical="https://JuliaSpacePhysics.github.io/EISCATData.jl",
-        edit_link="main",
-        assets=String[],
     ),
     pages=[
         "Home" => "index.md",
+        "Quicklook" => "quicklook.md"
     ],
 )
 
 deploydocs(;
     repo="github.com/JuliaSpacePhysics/EISCATData.jl",
-    devbranch="main",
+    push_preview = true
 )
