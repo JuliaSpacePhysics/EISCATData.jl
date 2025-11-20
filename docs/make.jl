@@ -12,7 +12,6 @@ makedocs(;
     ),
     pages=[
         "Home" => "index.md",
-        "Quicklook" => "quicklook.md"
     ],
 )
 

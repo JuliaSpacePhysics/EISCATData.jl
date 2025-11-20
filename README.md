@@ -1,5 +1,7 @@
 # EISCATData
 
+[![DOI](https://zenodo.org/badge/1097475817.svg)](https://doi.org/10.5281/zenodo.17654030)
+
 [![Build Status](https://github.com/JuliaSpacePhysics/EISCATData.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/JuliaSpacePhysics/EISCATData.jl/actions/workflows/CI.yml?query=branch%3Amain)
 [![Coverage](https://codecov.io/gh/JuliaSpacePhysics/EISCATData.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/JuliaSpacePhysics/EISCATData.jl)
 [![Aqua](https://raw.githubusercontent.com/JuliaTesting/Aqua.jl/master/badge.svg)](https://github.com/JuliaTesting/Aqua.jl)
@@ -31,6 +33,7 @@ data.ut1_unix    # Unix timestamps
 ## Features and Roadmap
 
 - [x] Download and load EISCAT data from Madrigal servers
+- [ ] Data cleaning and processing
 
 ## Elsewhere
 
