@@ -1,6 +1,7 @@
 # EISCATData
 
 [![DOI](https://zenodo.org/badge/1097475817.svg)](https://doi.org/10.5281/zenodo.17654030)
+[![version](https://juliahub.com/docs/General/EISCATData/stable/version.svg)](https://juliahub.com/ui/Packages/General/EISCATData)
 
 [![Build Status](https://github.com/JuliaSpacePhysics/EISCATData.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/JuliaSpacePhysics/EISCATData.jl/actions/workflows/CI.yml?query=branch%3Amain)
 [![Coverage](https://codecov.io/gh/JuliaSpacePhysics/EISCATData.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/JuliaSpacePhysics/EISCATData.jl)
@@ -38,3 +39,4 @@ data.ut1_unix    # Unix timestamps
 ## Elsewhere
 
 - [GeospaceLAB](https://github.com/JouleCai/geospacelab): A Python-based framework for data access, analysis, and visualization.
+- [Madrigal.jl](https://github.com/JuliaSpacePhysics/Madrigal.jl): A Julia API to access the Madrigal database (the backend of EISCATData).

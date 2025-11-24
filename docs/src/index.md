@@ -5,6 +5,7 @@ CurrentModule = EISCATData
 # EISCATData
 
 [![DOI](https://zenodo.org/badge/1097475817.svg)](https://doi.org/10.5281/zenodo.17654030)
+[![version](https://juliahub.com/docs/General/EISCATData/stable/version.svg)](https://juliahub.com/ui/Packages/General/EISCATData)
 
 Access and process [EISCAT](https://www.wikipedia.org/wiki/EISCAT) incoherent scatter radar data from the [Madrigal database](https://cedar.openmadrigal.org/).
 
