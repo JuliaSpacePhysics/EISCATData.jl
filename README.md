@@ -3,26 +3,20 @@
 [![DOI](https://zenodo.org/badge/1097475817.svg)](https://doi.org/10.5281/zenodo.17654030)
 [![version](https://juliahub.com/docs/General/EISCATData/stable/version.svg)](https://juliahub.com/ui/Packages/General/EISCATData)
 
-[![Build Status](https://github.com/JuliaSpacePhysics/EISCATData.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/JuliaSpacePhysics/EISCATData.jl/actions/workflows/CI.yml?query=branch%3Amain)
-[![Coverage](https://codecov.io/gh/JuliaSpacePhysics/EISCATData.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/JuliaSpacePhysics/EISCATData.jl)
-[![Aqua](https://raw.githubusercontent.com/JuliaTesting/Aqua.jl/master/badge.svg)](https://github.com/JuliaTesting/Aqua.jl)
-
-Access and process [EISCAT](https://www.wikipedia.org/wiki/EISCAT) incoherent scatter radar data from the [Madrigal database](https://cedar.openmadrigal.org/).
-
-**Installation**: at the Julia REPL, run `using Pkg; Pkg.add("EISCATData")`
-
-**Documentation**: [![Dev](https://img.shields.io/badge/docs-dev-blue.svg?logo=julia)](https://JuliaSpacePhysics.github.io/EISCATData.jl/dev/)
+Access and process [EISCAT](https://www.wikipedia.org/wiki/EISCAT) incoherent scatter radar data from the [Madrigal database](https://cedar.openmadrigal.org/) (based on [Madrigal.jl](https://github.com/JuliaSpacePhysics/Madrigal.jl)).
 
 ## Quick Start
 
 ```julia
+using Pkg; Pkg.add("EISCATData")
 using EISCATData
 using Dates
 
 # Download GUISDAP data from Tromsø
+site = TRO # or LYR
 t0 = DateTime(2020, 12, 9, 18)
 t1 = DateTime(2020, 12, 10, 6)
-data = get_data(t0, t1, :tro, :GUISDAP, "60"; clip = true)
+data = get_data(t0, t1, site, :GUISDAP, "60"; clip = true)
 
 # Access variables
 data.ne          # Electron density
@@ -31,12 +25,6 @@ data.gdalt       # Altitude
 data.ut1_unix    # Unix timestamps
 ```
 
-## Features and Roadmap
-
-- [x] Download and load EISCAT data from Madrigal servers
-- [ ] Data cleaning and processing
-
 ## Elsewhere
 
 - [GeospaceLAB](https://github.com/JouleCai/geospacelab): A Python-based framework for data access, analysis, and visualization.
-- [Madrigal.jl](https://github.com/JuliaSpacePhysics/Madrigal.jl): A Julia API to access the Madrigal database (the backend of EISCATData).

@@ -86,7 +86,7 @@ end
 
 Alternatively, we can also use [`PythonPlot`](https://github.com/JuliaPy/PythonPlot.jl) for visualization:
 
-```@example quicklook
+```julia
 using PythonPlot
 using PythonCall
 @py import cmap: Colormap

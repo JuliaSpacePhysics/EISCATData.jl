@@ -6,12 +6,30 @@ using Dates: unix2datetime
 using Match: @match
 import Madrigal: get_experiments, kinst
 
-include("sites.jl")
+export get_data, get_experiments
+export TRO, LYR
 
 const EISCAT_SERVER = "http://madrigal.eiscat.se"
 
-export get_data, get_experiments
-export TRO, LYR
+# http://supermag.jhuapl.edu/mag/?tab=stationinfo
+# https://github.com/JouleCai/geospacelab/blob/master/geospacelab/datahub/sources/supermag/SuperMAG_stations.dat
+
+struct EISCATSite
+    kinst::Int
+    name::String
+    category::String
+    lat::Float64
+    lon::Float64
+    alt::Float64
+    contact::String
+    email::String
+    mnemonic::Symbol
+end
+
+const TRO = EISCATSite(72, "EISCAT Tromsø UHF IS radar", "Incoherent Scatter Radars", 69.583, 19.21, 0.03, "Ingemar Häggström", "ingemar@eiscat.se", :tro)
+const LYR = EISCATSite(95, "EISCAT Svalbard IS Radar Longyearbyen", "Incoherent Scatter Radars", 78.09, 16.02, 0.434, "Ingemar Häggström", "ingemar@eiscat.se", :lyr)
+
+Madrigal.kinst(s::EISCATSite) = s.kinst
 
 default_vars() = (:gdalt, :ne, :ti, :tr)
 
@@ -24,11 +42,11 @@ end
 """
     get_data(tstart, tend, kinst, kindat, mod, vars = nothing; tvars = (:ut1_unix, :ut2_unix), clip = false, verbose = false, kw...)
 
-Download and process EISCAT data from the Madrigal database, given the time range, instrument code `kinst`, kind of data file code `kindat`, and modulation `mod`.
+Download and process EISCAT data, given the time range, instrument code `kinst`, kind of data file code `kindat`, and modulation `mod`.
 
 Set `clip = true` to clip data to the exact time range. Set `verbose = true` to show download progress. Additional keyword arguments are passed to `download_file`.
 """
-function get_data(tstart, tend, kinst, kindat, mod, vars = nothing; tvars = (:ut1_unix, :ut2_unix), clip = false, verbose = false, server = EISCAT_SERVER, kw...)
+function get_data(tstart, tend, kinst, kindat, mod, vars=nothing; tvars=(:ut1_unix, :ut2_unix), clip=false, verbose=false, server=EISCAT_SERVER, kw...)
     vars = @something vars default_vars()
     exp_files = get_instrument_files(kinst, _kindat(kindat), tstart, tend; server)
     filter!(file -> contains(file.name, mod), exp_files)
@@ -49,12 +67,12 @@ function times(out, tvars)
     return x
 end
 
-function process_data(out, times, tstart, tend; clip = false)
+function process_data(out, times, tstart, tend; clip=false)
     Nt = length(times)
     new_out = map(out) do var
         reshape(var, :, Nt)
     end
-    new_out = (new_out..., times = times)
+    new_out = (new_out..., times=times)
     return if clip
         tind = findfirst(t -> t >= tstart, times)
         tendind = findlast(t -> t < tend, times)
